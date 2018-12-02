@@ -1,0 +1,17 @@
+service: zendesk-bigquery
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ap-southeast-2
+  stage: ${env:ENV}
+  timeout: 60
+  deploymentBucket:
+    name: ${env:DEPLOYMENT_BUCKET}
+    serverSideEncryption: AES256
+
+functions:
+  index:
+    handler: index.handler
+    events:
+    - schedule: ${env:SCHEDULE}
